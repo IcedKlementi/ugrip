@@ -1,4 +1,3 @@
-
 #!/bin/sh
 
 yarn run cors &
