@@ -201,6 +201,7 @@ function App() {
   const [capo, setCapo] = useState(0);
   const [transposedChords, setTransposedChords] = useState('');
   const [copied, setCopied] = useState(false);
+  const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   const [layout, setLayout] = useState('single');
   const [density, setDensity] = useState('Normal');
@@ -293,8 +294,80 @@ function App() {
   return (
     <>
       <div className="app-header">
-        <h1>UGRIP</h1>
-        <span>Ultimate Guitar Chord Extractor</span>
+        <div className="app-header-title">
+          <h1>UGRIP</h1>
+          <span className="app-subtitle">Ultimate Guitar Chord Extractor</span>
+        </div>
+        <div className="app-credits">
+          <span className="credits-line">Workflow revised by <strong>IcedKlementi</strong></span>
+          <span className="credits-line">
+            Forked from{' '}
+            <a className="credits-link" href="https://hedwiggggg.github.io/ugrip" target="_blank" rel="noreferrer">
+              hedwiggggg/ugrip
+            </a>
+            {' '}· ultimate-guitar.com · user interface &amp; pdf generator
+          </span>
+        </div>
+      </div>
+
+      {/* ── Collapsible Instructions ── */}
+      <div className="instructions-panel">
+        <button
+          className="instructions-toggle"
+          onClick={() => setInstructionsOpen(o => !o)}
+        >
+          <span className="instructions-icon">{instructionsOpen ? '▾' : '▸'}</span>
+          How to use
+          <span className="instructions-badge">{instructionsOpen ? 'hide' : 'show'}</span>
+        </button>
+
+        {instructionsOpen && (
+          <div className="instructions-body">
+            <ol className="instructions-list">
+              <li>
+                <strong>Copy the DevTools snippet</strong> — click <em>Copy</em> next to the snippet below.
+              </li>
+              <li>
+                <strong>Open a Ultimate Guitar tab page</strong> in your browser (e.g.{' '}
+                <code className="instr-code">tabs.ultimate-guitar.com/tab/…</code>).
+              </li>
+              <li>
+                <strong>Open DevTools</strong> — press <kbd>F12</kbd> and switch to the <em>Console</em> tab.
+              </li>
+              <li>
+                <strong>Paste and run the snippet</strong> — the tab content is copied to your clipboard automatically.
+              </li>
+              <li>
+                <strong>Paste into Raw Input</strong> — the chord data populates the <em>Edit</em> box on the right.
+                Trim any intro text or credits you don't want before processing.
+              </li>
+              <li>
+                <strong>Set Capo</strong> (if the song uses one) — this offsets the transpose so the output
+                reflects the <em>sounding</em> key rather than the written key.
+              </li>
+              <li>
+                <strong>Transpose</strong> — drag the slider to shift all chords by semitone steps.
+                The key indicator updates live when <em>Follow Key Signature</em> is selected.
+              </li>
+              <li>
+                <strong>Halftones</strong> — choose <em>Sharps</em>, <em>Flats</em>, or <em>Follow Key Signature</em>.
+                Follow Key uses the spelling of the selected key to decide flats vs sharps automatically.
+              </li>
+              <li>
+                <strong>PDF Settings</strong> — pick layout (1 or 2 columns), page size, and density.
+                The chord display preview updates instantly to show where page breaks will fall.
+              </li>
+              <li>
+                <strong>Chord display</strong> — toggle <em>Dark/Light</em> mode and pick a chord color
+                using the swatches or hex input. The color carries through to the PDF.
+              </li>
+              <li>
+                <strong>Download PDF</strong> — click the button to generate and save the PDF.
+                The PDF always uses a white background with light-mode styling.
+              </li>
+            </ol>
+          </div>
+        )}
       </div>
 
       <div className="controls">
