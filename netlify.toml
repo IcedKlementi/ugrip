@@ -1,5 +1,5 @@
 [build]
-  command = "CI=false NODE_OPTIONS=--openssl-legacy-provider PUBLIC_URL=/ yarn build"
+  command = "CI=false PUBLIC_URL=/ yarn build"
   publish = "build"
 
 [build.environment]
